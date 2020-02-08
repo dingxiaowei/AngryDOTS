@@ -33,6 +33,7 @@ public class Settings : MonoBehaviour
 			instance = this;
 	}
 
+    //随机生成一个主角周围的坐标
 	public static Vector3 GetPositionAroundPlayer(float radius)
 	{
 		Vector3 playerPos = instance.player.position;

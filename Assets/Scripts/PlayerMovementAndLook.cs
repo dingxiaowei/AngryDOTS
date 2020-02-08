@@ -1,5 +1,6 @@
 ﻿using UnityEngine;
 
+//角色行走和朝向组件
 public class PlayerMovementAndLook : MonoBehaviour
 {
 	[Header("Camera")]
@@ -46,7 +47,7 @@ public class PlayerMovementAndLook : MonoBehaviour
 		
 		//Why not just pass the vector instead of breaking it up only to remake it on the other side?
 		MoveThePlayer(desiredDirection);
-		TurnThePlayer();
+		TurnThePlayer(); //设置主角朝向鼠标位置
 		AnimateThePlayer(desiredDirection);
 		
 	}
@@ -56,22 +57,22 @@ public class PlayerMovementAndLook : MonoBehaviour
 		Vector3 movement = new Vector3(desiredDirection.x, 0f, desiredDirection.z);
 		movement = movement.normalized * speed * Time.deltaTime;
 
-		playerRigidbody.MovePosition(transform.position + movement);
+		playerRigidbody.MovePosition(transform.position + movement); //设置主角位置
 	}
 
 	void TurnThePlayer()
 	{
-		Ray ray = mainCamera.ScreenPointToRay(Input.mousePosition);
+		Ray ray = mainCamera.ScreenPointToRay(Input.mousePosition); //摄像机到鼠标发射一条射线
 		RaycastHit hit;
 
-		if (Physics.Raycast(ray, out hit, whatIsGround))
+		if (Physics.Raycast(ray, out hit, whatIsGround)) //几种地板
 		{
 			Vector3 playerToMouse = hit.point - transform.position;
 			playerToMouse.y = 0f;
 			playerToMouse.Normalize();
 
-			Quaternion newRotation = Quaternion.LookRotation(playerToMouse);
-			playerRigidbody.MoveRotation(newRotation);
+			Quaternion newRotation = Quaternion.LookRotation(playerToMouse); //朝向的方向
+			playerRigidbody.MoveRotation(newRotation); //设置刚体朝向
 		}
 	}
 
@@ -89,6 +90,7 @@ public class PlayerMovementAndLook : MonoBehaviour
 	}
 
 	//Player Collision
+    //如果碰撞到Enemy则掉血和死亡
 	void OnTriggerEnter(Collider theCollider)
 	{
 		if (!theCollider.CompareTag("Enemy"))

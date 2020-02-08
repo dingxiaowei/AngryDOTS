@@ -1,11 +1,14 @@
 ﻿using UnityEngine;
 
+/// <summary>
+/// 子弹撞击特效池
+/// </summary>
 public class BulletImpactPool : MonoBehaviour
 {
 	static BulletImpactPool instance;
 
 	[Header("Bullet Impact Info")]
-	public GameObject bulletHitPrefab;
+	public GameObject bulletHitPrefab; //撞击特效Prefab
 	public int impactPoolSize = 100;
 
 	GameObject[] impactPool;
@@ -29,6 +32,7 @@ public class BulletImpactPool : MonoBehaviour
 		}
 	}
 
+    //播放特效
 	public static void PlayBulletImpact(Vector3 position)
 	{
 		if (++instance.currentPoolIndex >= instance.impactPool.Length)

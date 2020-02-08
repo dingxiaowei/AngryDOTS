@@ -12,13 +12,13 @@ public class RemoveDeadSystem : ComponentSystem
 			{
 				if (EntityManager.HasComponent(entity, typeof(PlayerTag)))
 				{
-					Settings.PlayerDied();
+					Settings.PlayerDied(); //如果有PlayerTag的实体则播放死亡
 				}
 
 				else if (EntityManager.HasComponent(entity, typeof(EnemyTag)))
 				{
-					PostUpdateCommands.DestroyEntity(entity);
-					BulletImpactPool.PlayBulletImpact(pos.Value);
+					PostUpdateCommands.DestroyEntity(entity); //销毁敌人
+					BulletImpactPool.PlayBulletImpact(pos.Value); //播放特效
 				}
 			}
 		});
